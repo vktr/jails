@@ -21,6 +21,9 @@ Install-Package Jails -Pre
 // permission.
 var isolator = new AppDomainIsolator();
 
+// Add unrestricted file IO permissions to the AppDomainIsolator
+isolator.Permissions.AddPermission(new FileIOPermission(PermissionState.Unrestricted));
+
 using(var jail = Jail.Create(isolator))
 {
     // Create a real dynamic proxy which will forward any calls to the
