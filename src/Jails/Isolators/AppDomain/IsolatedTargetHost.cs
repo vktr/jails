@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Jails.Isolators.AppDomain
@@ -27,10 +28,29 @@ namespace Jails.Isolators.AppDomain
             return Activator.CreateInstance(type);
         }
 
+        public object GetProperty(string propertyName)
+        {
+            var target = _target.Value;
+            var prop = target.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+
+            return prop.GetValue(target);
+        }
+
+        public void SetProperty(string propertyName, object value)
+        {
+            var target = _target.Value;
+            var prop = target.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+
+            prop.SetValue(target, value);
+        }
+
         public object Invoke(string methodName, params object[] arguments)
         {
             var target = _target.Value;
-            var method = target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public);
+            var argumentTypes = arguments == null ? Type.EmptyTypes : arguments.Select(a => a.GetType()).ToArray();
+            var method = target
+                .GetType()
+                .GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public, null, argumentTypes, null);
 
             return method.Invoke(target, arguments);
         }

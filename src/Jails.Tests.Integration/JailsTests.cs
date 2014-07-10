@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Permissions;
 using Jails.Isolators.AppDomain;
 using NUnit.Framework;
 
@@ -12,6 +11,8 @@ namespace Jails.Tests.Integration
         {
             interface ICalculator
             {
+                string Name { get; set; }
+
                 int Multiply(int x, int y);
             }
 
@@ -24,8 +25,10 @@ namespace Jails.Tests.Integration
                 {
                     dynamic calculator = jail.Load("Calculator.SimpleCalculator", "Ext/Calculator.dll");
                     int result = calculator.Sum(new[] {1, 2, 3, 4, 5});
+                    calculator.Name = "simple calculator";
 
                     Assert.AreEqual(15, result);
+                    Assert.AreEqual("simple calculator", calculator.Name);
                 }
 
                 Assert.IsFalse(AppDomain.CurrentDomain.GetAssemblies().Any(asm => asm.GetName().Name == "Calculator"));
@@ -40,8 +43,10 @@ namespace Jails.Tests.Integration
                 {
                     var calculator = jail.Load<ICalculator>("Calculator.SimpleCalculator", "Ext/Calculator.dll");
                     var result = calculator.Multiply(6, 6);
+                    calculator.Name = "simple calculator";
 
                     Assert.AreEqual(36, result);
+                    Assert.AreEqual("simple calculator", calculator.Name);
                 }
 
                 Assert.IsFalse(AppDomain.CurrentDomain.GetAssemblies().Any(asm => asm.GetName().Name == "Calculator"));

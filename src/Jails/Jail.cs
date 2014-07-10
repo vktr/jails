@@ -6,7 +6,7 @@ namespace Jails
     {
         private readonly IIsolator _isolator;
 
-        private Jail(IIsolator isolator)
+        internal Jail(IIsolator isolator)
         {
             if (isolator == null) throw new ArgumentNullException("isolator");
             _isolator = isolator;
@@ -14,6 +14,9 @@ namespace Jails
 
         public object Load(string typeName, string assemblyFile)
         {
+            if (typeName == null) throw new ArgumentNullException("typeName");
+            if (assemblyFile == null) throw new ArgumentNullException("assemblyFile");
+
             return _isolator.CreateDynamicProxy(typeName, assemblyFile);
         }
 

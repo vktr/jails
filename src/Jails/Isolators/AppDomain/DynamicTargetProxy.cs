@@ -12,6 +12,34 @@ namespace Jails.Isolators.AppDomain
             _target = target;
         }
 
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            result = null;
+
+            try
+            {
+                result = _target.GetProperty(binder.Name);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            try
+            {
+                _target.SetProperty(binder.Name, value);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             result = null;
