@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Dynamic;
 
-namespace Jails.Isolators.AppDomain
+namespace Jails
 {
     public class DynamicTargetProxy : DynamicObject
     {
-        private readonly IIsolatedTargetHost _target;
+        private readonly IInvocationTarget _target;
 
-        public DynamicTargetProxy(IIsolatedTargetHost target)
+        public DynamicTargetProxy(IInvocationTarget target)
         {
             _target = target;
         }

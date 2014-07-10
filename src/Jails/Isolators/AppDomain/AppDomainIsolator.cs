@@ -1,61 +1,42 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Security;
-using System.Security.Permissions;
+using System.Security.Policy;
 
 namespace Jails.Isolators.AppDomain
 {
     public class AppDomainIsolator : IIsolator
     {
-        public AppDomainIsolator()
+        private readonly AppDomainOptions _options;
+
+        public AppDomainIsolator(AppDomainOptions options = null)
         {
-            Permissions = new PermissionSet(PermissionState.None);
-            Permissions.AddPermission(new SecurityPermission(SecurityPermissionFlag.Execution));
+            _options = options ?? AppDomainOptions.GetDefault();
         }
 
-        public PermissionSet Permissions { get; set; }
-
-        object IIsolator.CreateDynamicProxy(string typeName, string assemblyFile)
+        public AppDomainOptions Options
         {
-            var target = CreateIsolatedTargetHost(typeName, assemblyFile);
-            return new DynamicTargetProxy(target);
+            get { return _options; }
         }
 
-        T IIsolator.CreateTypedProxy<T>(string typeName, string assemblyFile)
+        IHost IIsolator.Build(IEnvironment environment)
         {
-            var target = CreateIsolatedTargetHost(typeName, assemblyFile);
-            var proxy = new TypedTargetProxy(target, typeof (T));
+            var domainName = _options.DomainName ?? Guid.NewGuid().ToString();
+            var strongName = typeof (Jail).Assembly.Evidence.GetHostEvidence<StrongName>();
 
-            return (T) proxy.GetTransparentProxy();
-        }
+            var domain = System.AppDomain.CreateDomain(domainName, null, _options.Setup, _options.Permissions, strongName);
+            
+            var host = (AppDomainHost) Activator.CreateInstanceFrom(domain,
+                typeof (AppDomainHost).Assembly.CodeBase,
+                typeof (AppDomainHost).FullName)
+                .Unwrap();
 
-        private IIsolatedTargetHost CreateIsolatedTargetHost(string typeName, string assemblyFile)
-        {
-            var setup = new AppDomainSetup
+            host.AddAssembly(typeof (Jail).Assembly.GetName());
+
+            foreach (var assemblyName in environment.GetAssemblyNames())
             {
-                ApplicationBase = Path.GetTempPath()
-            };
+                host.AddAssembly(assemblyName);
+            }
 
-            var permissionSet = new PermissionSet(Permissions);
-
-            // Make sure the new domain can read and discover the assembly file
-            permissionSet.AddPermission(
-                new FileIOPermission(FileIOPermissionAccess.PathDiscovery
-                                     | FileIOPermissionAccess.Read,
-                    Path.GetFullPath(assemblyFile)));
-
-            var domain = System.AppDomain.CreateDomain(string.Format("Proxy:{0}", typeName), null, setup, permissionSet);
-            return (IsolatedTargetHost) Activator.CreateInstanceFrom(
-                domain,
-                typeof (IsolatedTargetHost).Assembly.CodeBase,
-                typeof (IsolatedTargetHost).FullName,
-                false,
-                BindingFlags.Default,
-                null,
-                new object[] {typeName, assemblyFile},
-                null,
-                null).Unwrap();
+            return host;
         }
     }
 }

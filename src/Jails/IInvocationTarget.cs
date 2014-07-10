@@ -1,6 +1,6 @@
-﻿namespace Jails.Isolators.AppDomain
+﻿namespace Jails
 {
-    public interface IIsolatedTargetHost
+    public interface IInvocationTarget
     {
         object GetProperty(string propertyName);
 

@@ -2,16 +2,17 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Permissions;
 
 namespace Jails.Isolators.AppDomain
 {
-    public class IsolatedTargetHost : MarshalByRefObject, IIsolatedTargetHost
+    public class InvocationTarget : MarshalByRefObject, IInvocationTarget
     {
         private readonly string _typeName;
         private readonly string _assemblyFile;
         private readonly Lazy<object> _target; 
 
-        public IsolatedTargetHost(string typeName, string assemblyFile)
+        public InvocationTarget(string typeName, string assemblyFile)
         {
             if (typeName == null) throw new ArgumentNullException("typeName");
             if (assemblyFile == null) throw new ArgumentNullException("assemblyFile");
@@ -20,6 +21,7 @@ namespace Jails.Isolators.AppDomain
             _target = new Lazy<object>(LoadTarget);
         }
 
+        [FileIOPermission(SecurityAction.Assert, Unrestricted = true)]
         private object LoadTarget()
         {
             var assembly = Assembly.LoadFile(Path.GetFullPath(_assemblyFile));

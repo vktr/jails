@@ -58,7 +58,7 @@ namespace Jails.Tests.Unit
                 var jail = fixture.CreateJail();
 
                 // When
-                jail.Load("Some.Type", "Assembly.dll");
+                jail.Resolve("Some.Type", "Assembly.dll");
 
                 // Then
                 fixture.Isolator.Received(1).CreateDynamicProxy("Some.Type", "Assembly.dll");

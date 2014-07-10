@@ -4,8 +4,8 @@ namespace Jails
 {
     public interface IJail : IDisposable
     {
-        object Load(string typeName, string assemblyFile);
+        object Resolve(string typeName, string assemblyName);
 
-        T Load<T>(string typeName, string assemblyFile) where T : class;
+        T Resolve<T>(string typeName, string assemblyName) where T : class;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Jails")]
-[assembly: InternalsVisibleTo("Jails.Tests")]
+// Strong name key
+[assembly: AssemblyKeyFile("../../Jails.snk")]

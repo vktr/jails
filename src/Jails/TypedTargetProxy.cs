@@ -3,13 +3,13 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
 
-namespace Jails.Isolators.AppDomain
+namespace Jails
 {
     public class TypedTargetProxy : RealProxy
     {
-        private readonly IIsolatedTargetHost _target;
+        private readonly IInvocationTarget _target;
 
-        public TypedTargetProxy(IIsolatedTargetHost target, Type proxyType)
+        public TypedTargetProxy(IInvocationTarget target, Type proxyType)
             : base(proxyType)
         {
             if (target == null) throw new ArgumentNullException("target");

@@ -4,35 +4,41 @@ namespace Jails
 {
     public sealed class Jail : IJail
     {
-        private readonly IIsolator _isolator;
+        private readonly IHost _host;
 
-        internal Jail(IIsolator isolator)
+        internal Jail(IHost host)
         {
-            if (isolator == null) throw new ArgumentNullException("isolator");
-            _isolator = isolator;
+            if (host == null) throw new ArgumentNullException("host");
+            _host = host;
         }
 
-        public object Load(string typeName, string assemblyFile)
+        public object Resolve(string typeName, string assemblyName)
         {
-            if (typeName == null) throw new ArgumentNullException("typeName");
-            if (assemblyFile == null) throw new ArgumentNullException("assemblyFile");
-
-            return _isolator.CreateDynamicProxy(typeName, assemblyFile);
+            var target = _host.ResolveTarget(typeName, assemblyName);
+            return new DynamicTargetProxy(target);
         }
 
-        public T Load<T>(string typeName, string assemblyFile) where T : class
+        public T Resolve<T>(string typeName, string assemblyName) where T : class
         {
-            return _isolator.CreateTypedProxy<T>(typeName, assemblyFile);
+            var target = _host.ResolveTarget(typeName, assemblyName);
+            var proxy = new TypedTargetProxy(target, typeof (T));
+
+            return proxy.GetTransparentProxy() as T;
         }
 
         public void Dispose()
         {
         }
 
-        public static IJail Create(IIsolator isolator)
+        public static IJail Create(IIsolator isolator, IEnvironment environment = null)
         {
             if (isolator == null) throw new ArgumentNullException("isolator");
-            return new Jail(isolator);
+
+            var host = isolator.Build(environment ?? new DefaultEnvironment());
+
+            // Register things from environment
+
+            return new Jail(host);
         }
     }
 }

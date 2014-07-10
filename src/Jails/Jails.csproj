@@ -29,6 +29,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -39,15 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEnvironment.cs" />
+    <Compile Include="IHost.cs" />
+    <Compile Include="IInvocationTarget.cs" />
     <Compile Include="IIsolator.cs" />
     <Compile Include="IJail.cs" />
+    <Compile Include="Isolators\AppDomain\AppDomainHost.cs" />
+    <Compile Include="Isolators\AppDomain\AppDomainOptions.cs" />
     <Compile Include="Jail.cs" />
+    <Compile Include="JailExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Isolators\AppDomain\AppDomainIsolator.cs" />
-    <Compile Include="Isolators\AppDomain\DynamicTargetProxy.cs" />
-    <Compile Include="Isolators\AppDomain\IIsolatedTargetHost.cs" />
-    <Compile Include="Isolators\AppDomain\IsolatedTargetHost.cs" />
-    <Compile Include="Isolators\AppDomain\TypedTargetProxy.cs" />
+    <Compile Include="DynamicTargetProxy.cs" />
+    <Compile Include="Isolators\AppDomain\InvocationTarget.cs" />
+    <Compile Include="TypedTargetProxy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
