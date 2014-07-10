@@ -2,6 +2,6 @@
 {
     public interface IHost
     {
-        IInvocationTarget ResolveTarget(string typeName, string assemblyName);
+        IInvocationTarget ResolveTarget(string typeName);
     }
 }

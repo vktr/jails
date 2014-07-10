@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Security.Policy;
 
 namespace Jails.Isolators.AppDomain
@@ -22,7 +23,7 @@ namespace Jails.Isolators.AppDomain
             var domainName = _options.DomainName ?? Guid.NewGuid().ToString();
             var strongName = typeof (Jail).Assembly.Evidence.GetHostEvidence<StrongName>();
 
-            var domain = System.AppDomain.CreateDomain(domainName, null, _options.Setup, _options.Permissions, strongName);
+            var domain = System.AppDomain.CreateDomain(domainName, null, _options.Setup, _options.Permissions, strongName, typeof(object).Assembly.Evidence.GetHostEvidence<StrongName>());
             
             var host = (AppDomainHost) Activator.CreateInstanceFrom(domain,
                 typeof (AppDomainHost).Assembly.CodeBase,
@@ -31,9 +32,16 @@ namespace Jails.Isolators.AppDomain
 
             host.AddAssembly(typeof (Jail).Assembly.GetName());
 
-            foreach (var assemblyName in environment.GetAssemblyNames())
+            foreach (var registration in environment.GetRegistrations())
             {
-                host.AddAssembly(assemblyName);
+                if (registration is AssemblyName)
+                {
+                    host.AddAssembly((AssemblyName) registration);
+                }
+                else if (registration is InMemoryAssembly)
+                {
+                    host.AddAssembly((InMemoryAssembly) registration);
+                }
             }
 
             return host;

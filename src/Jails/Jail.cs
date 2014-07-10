@@ -12,15 +12,15 @@ namespace Jails
             _host = host;
         }
 
-        public object Resolve(string typeName, string assemblyName)
+        public object Resolve(string typeName)
         {
-            var target = _host.ResolveTarget(typeName, assemblyName);
+            var target = _host.ResolveTarget(typeName);
             return new DynamicTargetProxy(target);
         }
 
-        public T Resolve<T>(string typeName, string assemblyName) where T : class
+        public T Resolve<T>(string typeName) where T : class
         {
-            var target = _host.ResolveTarget(typeName, assemblyName);
+            var target = _host.ResolveTarget(typeName);
             var proxy = new TypedTargetProxy(target, typeof (T));
 
             return proxy.GetTransparentProxy() as T;

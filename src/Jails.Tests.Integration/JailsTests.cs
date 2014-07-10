@@ -22,7 +22,7 @@ namespace Jails.Tests.Integration
 
                 using (var jail = Jail.Create(isolator, environment))
                 {
-                    dynamic calculator = jail.Resolve("Calculator.SimpleCalculator", "Ext/Calculator.dll");
+                    dynamic calculator = jail.Resolve("Calculator.SimpleCalculator");
                     int result = calculator.Sum(new[] {1, 2, 3, 4, 5});
                     calculator.Name = "simple calculator";
 

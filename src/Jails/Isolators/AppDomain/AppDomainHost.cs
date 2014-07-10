@@ -20,6 +20,11 @@ namespace Jails.Isolators.AppDomain
             CodeAccessPermission.RevertAll();
         }
 
+        public void AddAssembly(InMemoryAssembly assembly)
+        {
+            Assembly.Load(assembly.Data, null, SecurityContextSource.CurrentAppDomain);
+        }
+
         private Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             var assembly = (from asm in System.AppDomain.CurrentDomain.GetAssemblies()
@@ -29,9 +34,9 @@ namespace Jails.Isolators.AppDomain
             return assembly;
         }
 
-        public IInvocationTarget ResolveTarget(string typeName, string assemblyName)
+        public IInvocationTarget ResolveTarget(string typeName)
         {
-            return new InvocationTarget(typeName, assemblyName);
+            return new InvocationTarget(typeName);
         }
     }
 }

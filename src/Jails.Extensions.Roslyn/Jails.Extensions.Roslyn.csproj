@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}</ProjectGuid>
+    <ProjectGuid>{B81BC5FF-B04E-4440-B4BA-493A7CD6F4ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jails</RootNamespace>
-    <AssemblyName>Jails</AssemblyName>
+    <RootNamespace>Jails.Extensions.Roslyn</RootNamespace>
+    <AssemblyName>Jails.Extensions.Roslyn</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,14 +29,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>..\..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>..\..\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,21 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEnvironment.cs" />
-    <Compile Include="IHost.cs" />
-    <Compile Include="IInvocationTarget.cs" />
-    <Compile Include="IIsolator.cs" />
-    <Compile Include="IJail.cs" />
-    <Compile Include="InMemoryAssembly.cs" />
-    <Compile Include="Isolators\AppDomain\AppDomainHost.cs" />
-    <Compile Include="Isolators\AppDomain\AppDomainOptions.cs" />
-    <Compile Include="Jail.cs" />
-    <Compile Include="JailExtensions.cs" />
+    <Compile Include="CSharpSource.cs" />
+    <Compile Include="EnvironmentExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Isolators\AppDomain\AppDomainIsolator.cs" />
-    <Compile Include="DynamicTargetProxy.cs" />
-    <Compile Include="Isolators\AppDomain\InvocationTarget.cs" />
-    <Compile Include="TypedTargetProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jails\Jails.csproj">
+      <Project>{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}</Project>
+      <Name>Jails</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
