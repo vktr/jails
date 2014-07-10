@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails", "src\Jails\Jails.csproj", "{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails.Tests.Integration", "src\Jails.Tests.Integration\Jails.Tests.Integration.csproj", "{12AAF472-308E-4819-BBE4-EA3E93189B6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C583DA97-C97B-470A-8F71-D69B894C5046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "src\Calculator\Calculator.csproj", "{C93170F7-67E6-4F56-9661-1FDE402C4C31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC68A373-8F8A-4DCF-A4BE-9FC60999901C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12AAF472-308E-4819-BBE4-EA3E93189B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12AAF472-308E-4819-BBE4-EA3E93189B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12AAF472-308E-4819-BBE4-EA3E93189B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12AAF472-308E-4819-BBE4-EA3E93189B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93170F7-67E6-4F56-9661-1FDE402C4C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93170F7-67E6-4F56-9661-1FDE402C4C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93170F7-67E6-4F56-9661-1FDE402C4C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93170F7-67E6-4F56-9661-1FDE402C4C31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12AAF472-308E-4819-BBE4-EA3E93189B6E} = {C583DA97-C97B-470A-8F71-D69B894C5046}
+		{C93170F7-67E6-4F56-9661-1FDE402C4C31} = {C583DA97-C97B-470A-8F71-D69B894C5046}
+	EndGlobalSection
+EndGlobal
