@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Permissions;
 using Jails.Isolators.AppDomain;
 using NUnit.Framework;
 
@@ -17,9 +18,9 @@ namespace Jails.Tests.Integration
             [Test]
             public void Loads_And_Calculates_With_Dynamic_Proxy_In_Separate_AppDomain()
             {
-                var provider = new AppDomainIsolator();
-
-                using (var jail = Jail.Create(provider))
+                var isolator = new AppDomainIsolator();
+                
+                using (var jail = Jail.Create(isolator))
                 {
                     dynamic calculator = jail.Load("Calculator.SimpleCalculator", "Ext/Calculator.dll");
                     int result = calculator.Sum(new[] {1, 2, 3, 4, 5});
@@ -33,9 +34,9 @@ namespace Jails.Tests.Integration
             [Test]
             public void Loads_And_Calculates_With_Typed_Proxy_In_Separate_AppDomain()
             {
-                var provider = new AppDomainIsolator();
+                var isolator = new AppDomainIsolator();
 
-                using (var jail = Jail.Create(provider))
+                using (var jail = Jail.Create(isolator))
                 {
                     var calculator = jail.Load<ICalculator>("Calculator.SimpleCalculator", "Ext/Calculator.dll");
                     var result = calculator.Multiply(6, 6);
