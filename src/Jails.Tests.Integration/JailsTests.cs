@@ -18,7 +18,7 @@ namespace Jails.Tests.Integration
                 var isolator = new AppDomainIsolator();
                 
                 var environment = new DefaultEnvironment();
-                environment.Register(AssemblyName.GetAssemblyName("Ext/Calculator.dll"));
+                environment.Register("Ext/Calculator.dll");
 
                 using (var jail = Jail.Create(isolator, environment))
                 {
