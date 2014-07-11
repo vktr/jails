@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Jails.Extensions.Roslyn</id>
+    <version>$version$</version>
+    <authors>Viktor Elofsson</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extends Jails with the ability to run Roslyn scripts.</description>
+    <projectUrl>http://jailsfx.org</projectUrl>
+    <tags>Jails, JailsFx, Sandbox, Roslyn</tags>
+    <dependencies>
+      <dependency id="Jails" />
+      <dependency id="Roslyn.Compilers.CSharp" version="1.2.20906.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="src/Jails.Extensions.Roslyn/bin/Release/Jails.Extensions.Roslyn.dll" target="lib/net45" />
+  </files>
+</package>
