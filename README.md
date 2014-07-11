@@ -11,7 +11,7 @@ Currently, it supports two ways of interacting with your sandboxed class. Either
 ### Install the latest version of Jails from NuGet.
 
 ```posh
-Install-Package Jails -Pre
+Install-Package Jails
 ```
 
 ### Isolate external assemblies (using a dynamic proxy)
@@ -21,14 +21,16 @@ Install-Package Jails -Pre
 // permission.
 var isolator = new AppDomainIsolator();
 
-// Add unrestricted file IO permissions to the AppDomainIsolator
-isolator.Permissions.AddPermission(new FileIOPermission(PermissionState.Unrestricted));
+// Create an environment and register an assembly name with it.
+// This will load the assembly in our jailed domain.
+var environment = new DefaultEnvironment();
+environment.Register(@"C:\Temp\UntrustedAssembly.dll");
 
-using(var jail = Jail.Create(isolator))
+using(var jail = Jail.Create(isolator, environment))
 {
     // Create a real dynamic proxy which will forward any calls to the
-    // internally created instance of "Some.External.Class".
-    dynamic proxy = jail.Load("Some.External.Class", @"C:\Temp\ExternalAssembly.dll");
+    // internally created instance of "Some.Untrusted.Class".
+    dynamic proxy = jail.Resolve("Some.Untrusted.Class");
 
     // Invoke the method "Run" passing two arguments. Both method name and
     // argument types must match "Some.External.Class".
@@ -37,3 +39,8 @@ using(var jail = Jail.Create(isolator))
     Console.WriteLine(result);
 }
 ```
+
+## FAQ
+
+- **Why use Jails?** Sandboxing code can sometimes be tricky. It doesn't have to be, but Jails try to provide a layer of abstraction on top of sandboxes built with AppDomains and processes.
+- **Why strong naming?** Strong naming Jails is done to be able to give it full trust in the jailed domain. I know of no other way to accomplish this.
