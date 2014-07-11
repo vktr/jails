@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\DynamicTargetProxyFixture.cs" />
     <Compile Include="Fixtures\JailFixture.cs" />
+    <Compile Include="Unit\DynamicTargetProxyTests.cs" />
     <Compile Include="Unit\JailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

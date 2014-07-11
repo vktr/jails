@@ -9,6 +9,7 @@ namespace Jails
 
         public DynamicTargetProxy(IInvocationTarget target)
         {
+            if (target == null) throw new ArgumentNullException("target");
             _target = target;
         }
 
