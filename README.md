@@ -40,6 +40,8 @@ using(var jail = Jail.Create(isolator, environment))
 }
 ```
 
+For more information, [see the wiki](https://github.com/jailsfx/jails/wiki)
+
 ## FAQ
 
 - **Why use Jails?** Sandboxing code can sometimes be tricky. It doesn't have to be, but Jails try to provide a layer of abstraction on top of sandboxes built with AppDomains and processes.
