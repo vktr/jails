@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Permissions;
 
 namespace Jails.Isolators.AppDomain
 {
@@ -19,7 +17,6 @@ namespace Jails.Isolators.AppDomain
             _target = new Lazy<object>(LoadTarget);
         }
 
-        [PermissionSet(SecurityAction.Assert, Unrestricted = true)]
         private object LoadTarget()
         {
             var type = (from asm in System.AppDomain.CurrentDomain.GetAssemblies()
