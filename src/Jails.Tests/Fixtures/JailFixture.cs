@@ -6,14 +6,14 @@ namespace Jails.Tests.Fixtures
     {
         public JailFixture()
         {
-            Isolator = Substitute.For<IIsolator>();
+            Host = Substitute.For<IHost>();
         }
 
-        public IIsolator Isolator { get; set; }
+        public IHost Host { get; set; }
 
         public Jail CreateJail()
         {
-            return new Jail(Isolator);
+            return new Jail(Host);
         }
     }
 }

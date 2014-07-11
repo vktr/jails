@@ -14,6 +14,11 @@ namespace Jails
 
         public object Resolve(string typeName)
         {
+            if (string.IsNullOrEmpty(typeName))
+            {
+                throw new ArgumentNullException("typeName");
+            }
+
             var target = _host.ResolveTarget(typeName);
             return new DynamicTargetProxy(target);
         }

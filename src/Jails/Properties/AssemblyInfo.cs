@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
-// Strong name key
 [assembly: AssemblyKeyFile("../../Jails.snk")]
+[assembly: InternalsVisibleTo("Jails.Tests,PublicKey=0024000004800000940000000602000000240000525341310004000001000100ddd3f4befc2247343f31863f960b70a8e024e2054f99c34879c011f2ad91b2558e1be3e6a4d96c086c6903f8a924243ac59f849874abd7d859ad5b7c208d47ed7638004ddaab93f9ebfb63280e1a88b560a97b35eecb7df6331ef3738c9148cbcda8fab7ccea7927e4b6c12dda42813ee7f6e9d53fba63d920be8634abc866c9")]
