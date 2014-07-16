@@ -9,9 +9,16 @@ namespace Jails.Isolators.AppDomain
     {
         public AppDomainOptions()
         {
+            var tempPath = Path.GetRandomFileName();
+
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+
             Setup = new AppDomainSetup
             {
-                ApplicationBase = Path.GetTempPath()
+                ApplicationBase = tempPath
             };
 
             Permissions = new PermissionSet(PermissionState.None);

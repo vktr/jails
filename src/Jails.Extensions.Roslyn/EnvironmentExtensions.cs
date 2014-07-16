@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Roslyn.Compilers;
 using Roslyn.Compilers.CSharp;
@@ -12,13 +14,21 @@ namespace Jails.Extensions.Roslyn
         {
             // Compile source to a temporary assembly
             var syntaxTree = SyntaxTree.ParseText(source.SourceCode);
-            
+            var refs = new List<MetadataReference>
+            {
+                new MetadataFileReference(typeof (object).Assembly.Location)
+            };
+
+            var asmName =
+                environment.GetRegistrations()
+                    .OfType<AssemblyName>()
+                    .Select(an => new MetadataFileReference(an.CodeBase.Replace("file:///", "")));
+
+            refs.AddRange(asmName);
+
             var compilation = Compilation.Create("JailsTemp.dll",
                 syntaxTrees: new[] {syntaxTree},
-                references: new[]
-                {
-                    new MetadataFileReference(typeof (object).Assembly.Location)
-                },
+                references: refs.ToArray(),
                 options: new CompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
             using (var stream = new MemoryStream())
