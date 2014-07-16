@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultEnvironment.cs" />
     <Compile Include="EnvironmentExtensions.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IHost.cs" />
