@@ -21,6 +21,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Roslyn", "Roslyn", "{47A89E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails.Extensions.Roslyn.Tests", "src\Jails.Extensions.Roslyn.Tests\Jails.Extensions.Roslyn.Tests.csproj", "{62BE27A7-41C0-47DA-9D30-7BCFD8A89FB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environments", "{7A0BD94F-B6F3-459A-B6BA-B686DE7D907E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nancy", "Nancy", "{DFBEEE78-1E95-4231-8CE7-9BFC76764DB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails.Environments.Nancy", "src\Jails.Environments.Nancy\Jails.Environments.Nancy.csproj", "{DF15D7C3-4935-438D-95EA-A9901B4EACF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails.Environments.Nancy.Tests", "src\Jails.Environments.Nancy.Tests\Jails.Environments.Nancy.Tests.csproj", "{9030C042-2911-4966-9996-29C9C2C22A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jails.Environments.Nancy.Sandbox", "src\Jails.Environments.Nancy.Sandbox\Jails.Environments.Nancy.Sandbox.csproj", "{D8334FE9-100B-449E-B822-115AF6AB059E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +61,18 @@ Global
 		{62BE27A7-41C0-47DA-9D30-7BCFD8A89FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62BE27A7-41C0-47DA-9D30-7BCFD8A89FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62BE27A7-41C0-47DA-9D30-7BCFD8A89FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF15D7C3-4935-438D-95EA-A9901B4EACF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF15D7C3-4935-438D-95EA-A9901B4EACF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF15D7C3-4935-438D-95EA-A9901B4EACF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF15D7C3-4935-438D-95EA-A9901B4EACF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9030C042-2911-4966-9996-29C9C2C22A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9030C042-2911-4966-9996-29C9C2C22A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9030C042-2911-4966-9996-29C9C2C22A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9030C042-2911-4966-9996-29C9C2C22A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8334FE9-100B-449E-B822-115AF6AB059E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8334FE9-100B-449E-B822-115AF6AB059E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8334FE9-100B-449E-B822-115AF6AB059E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8334FE9-100B-449E-B822-115AF6AB059E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +84,9 @@ Global
 		{47A89E05-7A50-43A8-B7B1-B824C96C2613} = {61FB0BCE-0EFF-453C-9628-A0F9382AD4B7}
 		{B81BC5FF-B04E-4440-B4BA-493A7CD6F4ED} = {47A89E05-7A50-43A8-B7B1-B824C96C2613}
 		{62BE27A7-41C0-47DA-9D30-7BCFD8A89FB2} = {47A89E05-7A50-43A8-B7B1-B824C96C2613}
+		{DFBEEE78-1E95-4231-8CE7-9BFC76764DB3} = {7A0BD94F-B6F3-459A-B6BA-B686DE7D907E}
+		{DF15D7C3-4935-438D-95EA-A9901B4EACF1} = {DFBEEE78-1E95-4231-8CE7-9BFC76764DB3}
+		{9030C042-2911-4966-9996-29C9C2C22A56} = {DFBEEE78-1E95-4231-8CE7-9BFC76764DB3}
+		{D8334FE9-100B-449E-B822-115AF6AB059E} = {DFBEEE78-1E95-4231-8CE7-9BFC76764DB3}
 	EndGlobalSection
 EndGlobal
